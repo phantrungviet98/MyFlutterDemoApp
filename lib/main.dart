@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/SoldierGameScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,12 +15,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      initialRoute: '/',
+      initialRoute: SoldierGameScreen.routeName,
       routes: {
         '/': (context) => Scaffold(
               body: RandomWords(),
             ),
         SecondScreen.routeName: (context) => SecondScreen(),
+        SoldierGameScreen.routeName: (context) => SoldierGameScreen()
       },
       // home: Scaffold(
       //   body: RandomWords(),
