@@ -8,6 +8,7 @@ import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/Context.dart';
 import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/ISoldier.dart';
 import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/Soldier.dart';
 import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/SoldierFactory.dart';
+import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/SoldierState.dart';
 import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/utils/number.dart';
 
 class SoldierGameScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class SoldierGameScreen extends StatefulWidget {
 
 class _SoldierGameScreenState extends State<SoldierGameScreen> {
   int _numberSoldierInFactory = 0;
-  List<SoldierWithContext> _soldierWithContexts = [];
+  List<SoldierWithState> _soldierWithContexts = [];
 
   SoldierType _randomSoldierType() {
     var randomNumber = getRandomNumber(1, 3);
@@ -35,9 +36,8 @@ class _SoldierGameScreenState extends State<SoldierGameScreen> {
     return SoldierType.others;
   }
 
-  _createSoldier(
-      int numberOfSoldier) {
-    List<SoldierWithContext> soldiers = [];
+  _createSoldier(int numberOfSoldier) {
+    List<SoldierWithState> soldiers = [];
     for (int i = 1; i <= numberOfSoldier; i++) {
       var soldierType = _randomSoldierType();
       DateTime startTime = DateTime.now();
@@ -45,9 +45,12 @@ class _SoldierGameScreenState extends State<SoldierGameScreen> {
       ISoldier soldier = SoldierFactory.createSoldier(soldierType);
       DateTime endTime = DateTime.now();
       print('create done ' + DateTime.now().toString());
-      Context context = Context(soldierType.toString() + i.toString(),
-          star: getRandomNumber(1, 10), startTime: startTime, createdTime: endTime);
-      soldiers.add(SoldierWithContext(soldier: soldier, context: context));
+      SoldierState context = SoldierState(soldierType.toString() + i.toString(),
+          star: getRandomNumber(1, 10),
+          startTime: startTime,
+          createdTime: endTime);
+      soldier.setExtrinsic(context);
+      soldiers.add(SoldierWithState(soldier: soldier, context: context));
     }
     setState(() {
       _soldierWithContexts = [..._soldierWithContexts, ...soldiers];
@@ -93,9 +96,9 @@ class _SoldierGameScreenState extends State<SoldierGameScreen> {
   }
 }
 
-class SoldierWithContext {
-  final Context context;
+class SoldierWithState {
+  final SoldierState context;
   final Soldier soldier;
 
-  const SoldierWithContext({this.context, this.soldier});
+  const SoldierWithState({this.context, this.soldier});
 }

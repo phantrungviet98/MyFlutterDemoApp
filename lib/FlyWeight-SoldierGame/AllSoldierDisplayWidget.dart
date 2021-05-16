@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_demo_flutter_app/FlyWeight-SoldierGame/SoldierGameScreen.dart';
 
 class AllSoldierDisplayWidget extends StatefulWidget {
-  final List<SoldierWithContext> soldierWithContexts;
+  final List<SoldierWithState> soldierWithContexts;
 
   const AllSoldierDisplayWidget({this.soldierWithContexts});
 
@@ -37,21 +37,12 @@ class _AllSoliderDisplayWidgetState extends State<AllSoldierDisplayWidget> {
                 Text(
                     'End time: ${widget.soldierWithContexts[index].context.createdTime.toString()}')
               ]),
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Colors.blueGrey))),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(width: 1, color: Colors.blueGrey))),
               padding: EdgeInsets.all(4),
               margin: EdgeInsets.only(bottom: 4),
             );
-            // return ListTile(
-            //   title: Text(describeEnum(widget.soldierWithContexts[index].soldier.soliderType) +
-            //       ' ' +
-            //       widget.soldierWithContexts[index].context.star.toString() +
-            //       ' ' +
-            //       widget.soldierWithContexts[index].context.startTime
-            //           .toString() +
-            //       ' ' +
-            //       widget.soldierWithContexts[index].context.createdTime
-            //           .toString()),
-            // );
           }),
     ));
   }

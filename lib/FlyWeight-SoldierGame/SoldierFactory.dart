@@ -32,6 +32,6 @@ class SoldierFactory {
   }
 
   static void waitingForCreateASoldier() {
-    sleep(Duration(seconds: 2));
+    sleep(Duration(seconds: 3));
   }
 }
